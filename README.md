@@ -1,8 +1,8 @@
 Hater Killer Script
 ===================
 
-by Erwan 'Labynocle' Ben Souiden
-under WTFPL 
+* by Erwan 'Labynocle' Ben Souiden
+* under WTFPL 
 
 
 Description
@@ -25,6 +25,6 @@ How to use it?
 Notes from the author
 ---------------------
 
-This script which help you to improve your user experience during browsing.
-I'm not responsible if you're offended by the actor list.
-This is just a fucking joke :)
+* This script which help you to improve your user experience during browsing.
+* I'm not responsible if you're offended by the actor list.
+* This is just a fucking joke :)
