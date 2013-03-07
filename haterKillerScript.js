@@ -9,8 +9,9 @@
 
 
 // BEGIN CONFIGURATION
-var theTruthList = ['ryan gosling--__--man'
-                ,'audrey tautou--__--woman',
+var theTruthList = ['ryan gosling--__--man',
+                'audrey tautou--__--woman',
+                'marion cotillard--__--woman',
                 'guillaume canet--__--man'];
 
 var manTrashWord = [ 'batard',
