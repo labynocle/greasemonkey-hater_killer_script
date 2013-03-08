@@ -1,10 +1,10 @@
 // ==UserScript==
-// @name        Hater Killer Script
-// @namespace   HaterKillerScript
+// @name Hater Killer Script
+// @namespace HaterKillerScript
 // @description Bring back the Truth about a choosen actor
-// @include     http*
-// @version     0.1
-// @grant       none
+// @include http*
+// @version 0.1
+// @grant none
 // ==UserScript==
 
 
@@ -16,6 +16,7 @@ var theTruthList = ['ryan gosling--__--man',
 
 var manTrashWord = [ 'batard',
                     'cretin',
+                    'bolosse',
                     'useless',
                     'bouffon'];
                     
@@ -43,24 +44,28 @@ function bringBackTheTruth(textNodes,theTruthActorName,theTruthGender,trashWord)
         coordinateWord = ['ce','d\''];
     }
     else if (vowelRegExp.test(theTruthActorName.charAt(0)) & theTruthGender == 'woman') {
-        coordinateWord = ['cette','d\''];    
+        coordinateWord = ['cette','d\''];
     }
     else {
-        var coordinateWord = ['ce','de '];
+        if ( theTruthGender == 'man' ) {
+            coordinateWord = ['ce','de '];
+        }
+        else {
+            coordinateWord = ['cette','de '];
+        }
     }
     
     // for debug only
     /*
-    console.log(coordinateWord[0] + ' ' + 
-                trashWord[randomIndice]+ ' '+ 
-                coordinateWord[1] +
-                toTitleCase(theTruthActorName));
-    
+    console.log(coordinateWord[0] + ' ' +
+    trashWord[randomIndice]+ ' '+
+    coordinateWord[1] +
+    toTitleCase(theTruthActorName));
     */
     
     // apply the RegExp
-    var searchRegExp = new RegExp(theTruthActorName,'gi');    
-    for (var i=0;i<textNodes.snapshotLength;i++) { 
+    var searchRegExp = new RegExp(theTruthActorName,'gi');
+    for (var i=0;i<textNodes.snapshotLength;i++) {
         var node = textNodes.snapshotItem(i);
         var randomIndice = getRandomInt (0, trashWord.length-1);
         node.data = node.data.replace(searchRegExp, coordinateWord[0] + ' ' + trashWord[randomIndice]+ ' '+ coordinateWord[1] + toTitleCase(theTruthActorName));
@@ -83,7 +88,7 @@ function toTitleCase(str)
 
 // Main
 textNodes = document.evaluate(
-"//text()", document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null); 
+"//text()", document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
 
 for (i=0;i<theTruthList.length;i++) {
     var theTruthCut = theTruthList[i].split('--__--');
@@ -91,7 +96,7 @@ for (i=0;i<theTruthList.length;i++) {
     var theTruthGender = theTruthCut[1];
 
     // by default we trash a man - courtesy!
-    wordTrash = manTrashWord;    
+    wordTrash = manTrashWord;
     if (theTruthGender == 'woman') {
         wordTrash = womanTrashWord;
     }

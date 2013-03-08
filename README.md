@@ -13,6 +13,7 @@ Work with the following actor:
 * Ryan Gosling
 * Audrey Tautou
 * Guillaume Canet
+* Marion Cotillard
 
 
 How to use it?
