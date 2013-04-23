@@ -26,6 +26,6 @@ How to use it?
 Notes from the author
 ---------------------
 
-* This script which help you to improve your user experience during browsing.
+* This script will help you to improve your user experience during browsing.
 * I'm not responsible if you're offended by the actor list.
 * This is just a fucking joke :)
