@@ -3,6 +3,7 @@ Hater Killer Script
 
 * by Erwan 'Labynocle' Ben Souiden
 * under WTFPL 
+* website: http://hater-killer-script.aleikoum.net/
 
 
 Description
