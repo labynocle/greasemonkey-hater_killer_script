@@ -2,7 +2,7 @@ Hater Killer Script
 ===================
 
 * by Erwan 'Labynocle' Ben Souiden
-* under WTFPL 
+* under WTFPL (only the script)
 * website: http://hater-killer-script.aleikoum.net/
 
 
@@ -27,6 +27,7 @@ How to use it?
 Notes from the author
 ---------------------
 
+* only the script is under WTFPL. The website has been created thanks to Bootstrap (http://twitter.github.io/bootstrap/ - under Apache License v2.0) and icons are from IconMonstr (http://iconmonstr.com/ - under the following terms http://iconmonstr.com/license/)
 * This script will help you to improve your user experience during browsing.
 * I'm not responsible if you're offended by the actor list.
 * This is just a fucking joke :)
