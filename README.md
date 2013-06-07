@@ -27,7 +27,7 @@ How to use it?
 Notes from the author
 ---------------------
 
-* only the script is under WTFPL. The website has been created thanks to Bootstrap (http://twitter.github.io/bootstrap/ - under Apache License v2.0) and icons are from IconMonstr (http://iconmonstr.com/ - under the following terms http://iconmonstr.com/license/)
+* only the script is under WTFPL. The website has been created thanks to Bootstrap (http://twitter.github.io/bootstrap/ - under Apache License v2.0), icons are from IconMonstr (http://iconmonstr.com/ - under the following terms http://iconmonstr.com/license/) and the logo has been created by Hasni Alamat (hasni_AT_aleikoum_DOT_net - all rights reserved) 
 * This script will help you to improve your user experience during browsing.
 * I'm not responsible if you're offended by the actor list.
 * This is just a fucking joke :)
