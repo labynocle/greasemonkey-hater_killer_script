@@ -3,7 +3,7 @@
 // @namespace HaterKillerScript
 // @description Bring back the Truth about a choosen actor
 // @include http*
-// @version 0.1
+// @version 0.2
 // @grant none
 // ==UserScript==
 
@@ -14,15 +14,12 @@ var theTruthList = ['ryan gosling--__--man',
                 'marion cotillard--__--woman',
                 'guillaume canet--__--man'];
 
-var manTrashWord = [ 'batard',
-                    'cretin',
-                    'bolosse',
-                    'useless',
-                    'bouffon'];
-                    
-var womanTrashWord = [ 'looseuse',
-                    'bouffone',
-                    'useless'];
+
+var trashWord = {};
+trashWord['fr'] = {man: ['cretin', 'batard', 'boloss', 'useless'], woman: ['looseuse', 'bouffone', 'useless']};
+trashWord['en'] = {man: ['useless', 'boring', 'stupid', 'idiot'], woman: ['useless', 'boring', 'stupid', 'idiot']};
+
+
 // END CONFIGURATION
 
 
@@ -32,43 +29,50 @@ var womanTrashWord = [ 'looseuse',
 // -----------------------------------------------
 
 // function to bring back the truth !!
-function bringBackTheTruth(textNodes,theTruthActorName,theTruthGender,trashWord) {
-
-    var randomIndice = getRandomInt (0, trashWord.length-1);
-    //console.log('trashword choose: ' + trashWord[randomIndice]);
+function bringBackTheTruth(textNodes,theTruthActorName,theTruthGender,trashWord,pageLang) {
     
-    // define the coordinate words according to
-    // the gender and the first letter of the name
-    var vowelRegExp = /^[aeiouy]$/i
-    if ( vowelRegExp.test(theTruthActorName.charAt(0)) & theTruthGender == 'man') {
-        coordinateWord = ['ce','d\''];
+    // set the coordinate words - depends of the language
+    if (pageLang == 'en') {
+        coordinateWord = ['this','of '];        
     }
-    else if (vowelRegExp.test(theTruthActorName.charAt(0)) & theTruthGender == 'woman') {
-        coordinateWord = ['cette','d\''];
-    }
-    else {
-        if ( theTruthGender == 'man' ) {
-            coordinateWord = ['ce','de '];
+    else if (pageLang == 'fr') {
+        // define the coordinate words according to
+        // the gender and the first letter of the name
+        var vowelRegExp = /^[aeiouy]$/i
+        if ( vowelRegExp.test(theTruthActorName.charAt(0)) & theTruthGender == 'man') {
+            coordinateWord = ['ce','d\''];
+        }
+        else if (vowelRegExp.test(theTruthActorName.charAt(0)) & theTruthGender == 'woman') {
+            coordinateWord = ['cette','d\''];
         }
         else {
-            coordinateWord = ['cette','de '];
+            if ( theTruthGender == 'man' ) {
+                coordinateWord = ['ce','de '];
+            }
+            else {
+                coordinateWord = ['cette','de '];
+            }
         }
     }
-    
-    // for debug only
-    /*
-    console.log(coordinateWord[0] + ' ' +
-    trashWord[randomIndice]+ ' '+
-    coordinateWord[1] +
-    toTitleCase(theTruthActorName));
-    */
+    else {
+        coordinateWord = ['this','of'];
+        // if we don't manage the language we set it to en
+        pageLang = 'en';
+    }
     
     // apply the RegExp
     var searchRegExp = new RegExp(theTruthActorName,'gi');
     for (var i=0;i<textNodes.snapshotLength;i++) {
         var node = textNodes.snapshotItem(i);
-        var randomIndice = getRandomInt (0, trashWord.length-1);
-        node.data = node.data.replace(searchRegExp, coordinateWord[0] + ' ' + trashWord[randomIndice]+ ' '+ coordinateWord[1] + toTitleCase(theTruthActorName));
+        var randomIndice = getRandomInt (0, trashWord[pageLang][theTruthGender].length-1);
+
+        // for debug only
+        console.log(coordinateWord[0] + ' ' +
+        trashWord[pageLang][theTruthGender][randomIndice] + ' '+
+        coordinateWord[1] +
+        toTitleCase(theTruthActorName));
+
+        node.data = node.data.replace(searchRegExp, coordinateWord[0] + ' ' + trashWord[pageLang][theTruthGender][randomIndice] + ' '+ coordinateWord[1] + toTitleCase(theTruthActorName));
     }
 }
 
@@ -77,6 +81,7 @@ function bringBackTheTruth(textNodes,theTruthActorName,theTruthGender,trashWord)
 function getRandomInt (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
 
 // function to upper case only the first letter of each words
 function toTitleCase(str)
@@ -90,19 +95,18 @@ function toTitleCase(str)
 textNodes = document.evaluate(
 "//text()", document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
 
+var pageLangTemp = document.getElementsByTagName('html')[0].getAttribute("lang");
+// by default if we're not able to find the lang attribut of the HTML tag
+// we choose the french as default language
+var pageLang = (pageLangTemp ? pageLangTemp:'fr');
+
 for (i=0;i<theTruthList.length;i++) {
     var theTruthCut = theTruthList[i].split('--__--');
     var theTruthActorName = theTruthCut[0];
     var theTruthGender = theTruthCut[1];
 
-    // by default we trash a man - courtesy!
-    wordTrash = manTrashWord;
-    if (theTruthGender == 'woman') {
-        wordTrash = womanTrashWord;
-    }
-
     // bring back the truth about the actor...
     bringBackTheTruth(textNodes,
                     theTruthActorName,theTruthGender,
-                    wordTrash);
+                    trashWord,pageLang);
 }
